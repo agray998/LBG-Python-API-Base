@@ -9,9 +9,11 @@ import unittest
 from lbg import item_builder
 from flask_api import status
 import requests
+from os import getenv
 
-PORT = 8080
-BASE_URL = f"http://localhost:{PORT}"
+PORT = getenv("PORT", 8080)
+HOST = "lbg-test"
+BASE_URL = f"http://{HOST}:{PORT}"
 
 class MyLbgApiTestCase(unittest.TestCase):
 

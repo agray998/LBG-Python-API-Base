@@ -68,7 +68,7 @@ def create():
     name = posted_data['name']
     description = posted_data['description']
     price = posted_data['price']
-    item = item_builder(name, description, float(price), int(_id + 1))
+    item = item_builder(name, description, float(price), int(_id))
 
     # insert the item into our Database
     item = ItemModel(**item)

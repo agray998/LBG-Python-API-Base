@@ -24,9 +24,7 @@ class MyLbgApiTestCase(unittest.TestCase):
         self.assertEqual(item_builder("Tool", "Hammer", 10.50, 99), expected)
 
     def test_item_builder_type(self):
-        """
-        Test to see if item_builder returns a dictionary object
-        """
+        "Test to see if item_builder returns a dictionary object"
         self.assertIsInstance(item_builder("Tool", "Hammer", 10.50, 99), dict)
 
     def test_create_post_request_status(self):

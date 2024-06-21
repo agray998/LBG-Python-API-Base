@@ -20,9 +20,10 @@ pipeline {
                 // Configure Docker to use gcloud as a credential helper
                 sh 'gcloud auth configure-docker --quiet'
                 // Build the Docker image
-                sh "docker build -t ${GCR_URL}/${IMAGE_NAME}:latest ."
+                sh "docker build -t ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER} ."
                 // Push the Docker image to GCR
-                sh "docker push ${GCR_URL}/${IMAGE_NAME}:latest"
+                sh "docker push ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "sed -e 's,{{BUILD_NUMBER}},'${BUILD_NUMBER}',g;' kubernetes/deployment.yaml > kubernetes/deployment.yml"
                 }
             }
         }
@@ -30,7 +31,7 @@ pipeline {
             steps {
                 script {
                     // Deploy to GKE using Jenkins Kubernetes Engine Plugin
-                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'kubernetes/deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'kubernetes/deployment.yml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
                 }
             }
         }

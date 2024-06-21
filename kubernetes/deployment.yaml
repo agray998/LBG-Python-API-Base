@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: gcr.io/lbg-mea-build-c19/agray-lbg-api:latest
+        image: gcr.io/lbg-mea-build-c19/agray-lbg-api:{{BUILD_NUMBER}}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
